@@ -1,23 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import UserForm from './components/UserForm';
+import Users from './components/Users';
+import {useState} from 'react'
 
 function App() {
+  const [users,setUsers]=useState([]);
+
+  const insertUser=(userObj)=>{
+    console.log("user insertion called")
+    setUsers((users)=>{
+      return [userObj,...users];
+    })
+
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <UserForm insertUserFn={insertUser}/>
+      {
+        users.length>0 &&
+        <Users userItems={users}/>
+      }
     </div>
   );
 }
